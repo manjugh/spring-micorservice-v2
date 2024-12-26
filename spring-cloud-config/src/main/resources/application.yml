@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: naming-server
+  cloud:
+    config:
+      server:
+        git:
+          uri= file:///C:/Personal/github-repos/Spring-Microservices/git-localconfig-repo:server:
+
+server:
+  port: 8888
+
+
+
+

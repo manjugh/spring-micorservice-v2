@@ -1,23 +1,24 @@
 package com.example.learning.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.math.BigDecimal;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CurrencyConversion {
 
     private long id;
     private String from;
     private String to;
     private BigDecimal conversionMultiple;
-    private int quantity;
     private BigDecimal totalCalulcatedAmount;
     private String enviornment;
 
-    public CurrencyConversion(long id, String from, String to, BigDecimal conversionMultiple, int quantity, BigDecimal totalCalulcatedAmount, String enviornment) {
+    public CurrencyConversion(long id, String from, String to, BigDecimal conversionMultiple, BigDecimal totalCalulcatedAmount, String enviornment) {
         this.id = id;
         this.from = from;
         this.to = to;
         this.conversionMultiple = conversionMultiple;
-        this.quantity = quantity;
         this.totalCalulcatedAmount = totalCalulcatedAmount;
         this.enviornment = enviornment;
     }

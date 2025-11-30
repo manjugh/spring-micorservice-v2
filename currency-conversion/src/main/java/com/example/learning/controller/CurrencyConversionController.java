@@ -16,16 +16,16 @@ public class CurrencyConversionController {
     private CurrencyExchangeProxy currencyExchangeProxy;
 
     @GetMapping("currency-conversion/from/{from}/to/{to}/{quantity}")
-    public CurrencyConversion conversion(@PathVariable String from, @PathVariable String to, @PathVariable int quantity) {
+    public CurrencyConversionResponse conversion(@PathVariable String from, @PathVariable String to, @PathVariable int quantity) {
         ResponseEntity<CurrencyConversion> currencyConversionResponseEntity = new RestTemplate().getForEntity("http://localhost:8000/currency-exchange/from/{from}/to/{to}", CurrencyConversion.class, Map.of("from", from, "to", to));
         CurrencyConversion currencyConversion = currencyConversionResponseEntity.getBody();
-        return new CurrencyConversion(currencyConversion.getId(), from, to, currencyConversion.getConversionMultiple(), quantity, BigDecimal.valueOf(quantity * currencyConversion.getConversionMultiple().intValue()), "");
+        return new CurrencyConversionResponse(currencyConversion.getId(), from, to, currencyConversion.getConversionMultiple(), quantity, BigDecimal.valueOf(quantity * currencyConversion.getConversionMultiple().intValue()), "");
     }
 
     @GetMapping("currency-conversion-feign/from/{from}/to/{to}/{quantity}")
-    public CurrencyConversion conversionFeign(@PathVariable String from, @PathVariable String to, @PathVariable int quantity) {
+    public CurrencyConversionResponse conversionFeign(@PathVariable String from, @PathVariable String to, @PathVariable int quantity) {
         CurrencyConversion currencyConversion = currencyExchangeProxy.conversion(from, to);
 
-        return new CurrencyConversion(currencyConversion.getId(), from, to, currencyConversion.getConversionMultiple(), quantity, BigDecimal.valueOf(quantity * currencyConversion.getConversionMultiple().intValue()), currencyConversion.getEnviornment());
+        return new CurrencyConversionResponse(currencyConversion.getId(), from, to, currencyConversion.getConversionMultiple(), quantity, BigDecimal.valueOf(quantity * currencyConversion.getConversionMultiple().intValue()), currencyConversion.getEnviornment());
     }
 }

@@ -1,13 +1,11 @@
 spring:
   application:
     name: currency-conversion
+  jackson:
+    deserialization:
+      fail-on-null-for-primitives: false
+
 
 server:
   port: 8100
 
-eureka:
-  client:
-   serviceUrl:
-     defaultZone: http://localhost:8761/eureka
-  instance:
-    hostname: localhost
